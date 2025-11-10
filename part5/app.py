@@ -130,8 +130,8 @@ def load_sonnets() -> List[Dict[str, object]]:
       - Use json.load(fileobj)
     """
     # BEGIN
-    way = module_relative_path("sonnets.json")
-    with open(way, encoding="utf-8") as s:
+    path = module_relative_path("sonnets.json")
+    with open(path, encoding="utf-8") as s:
         s = json.load(s)
     return s
     # END
@@ -149,14 +149,12 @@ def load_config() -> Dict[str, object]:
     """
     # BEGIN
     filename = module_relative_path("config.json")
+    both = dict(CONFIG_DEFAULTS)
     if os.path.exists(filename):
         with open(filename, encoding="utf-8") as c:
             c = json.load(c)
-            both = dict(CONFIG_DEFAULTS)
             both.update(c)
-        return both
-    else:
-        return dict(CONFIG_DEFAULTS)
+    return both
     # END
 
 def save_config(cfg: Dict[str, object]) -> None:
